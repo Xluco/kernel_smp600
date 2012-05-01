@@ -34,6 +34,7 @@
 #include <linux/mutex.h>
 #include <linux/anon_inodes.h>
 #include <linux/device.h>
+#include <linux/freezer.h>
 #include <asm/uaccess.h>
 #include <asm/io.h>
 #include <asm/mman.h>
@@ -1731,7 +1732,7 @@ SYSCALL_DEFINE4(epoll_ctl, int, epfd, int, op, int, fd,
 
 	/* Check if EPOLLWAKEUP is allowed */
 	if ((epds.events & EPOLLWAKEUP) && !capable(CAP_EPOLLWAKEUP))
-		epds.events &= ~EPOLLWAKEUP;
+		goto error_tgt_fput;
 
 	/*
 	 * We have to check that the file structure underneath the file descriptor
