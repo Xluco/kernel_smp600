@@ -19,12 +19,14 @@
 #include <linux/dma-mapping.h>
 #include <linux/highmem.h>
 #include <linux/slab.h>
-
+#include <linux/iommu.h>
+#include <linux/io.h>
+#include <linux/vmalloc.h>
+#include <linux/sizes.h>
 #include <asm/memory.h>
 #include <asm/highmem.h>
 #include <asm/cacheflush.h>
 #include <asm/tlbflush.h>
-#include <asm/sizes.h>
 #include <asm/mach/arch.h>
 
 #include "mm.h"
