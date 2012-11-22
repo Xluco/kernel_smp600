@@ -351,7 +351,7 @@ LDFLAGS = -O1 --as-needed --sort-common -S
 CFLAGS_MODULE   = $(CFLAGS_KERNEL)
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  = $(LDFLAGS)
-CFLAGS_KERNEL	= -marm -mfpu=neon-vfpv4 -funsafe-loop-optimizations -funsafe-math-optimizations \
+CFLAGS_KERNEL	= -marm -munaligned-access -mfpu=neon-vfpv4 -funsafe-loop-optimizations -funsafe-math-optimizations \
 					-mvectorize-with-neon-quad \
 					-fgcse-sm -fgcse-las \
 					-ftree-loop-im -ftree-loop-ivcanon -fivopts \
