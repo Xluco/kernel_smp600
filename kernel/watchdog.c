@@ -23,6 +23,7 @@
 #include <linux/module.h>
 #include <linux/sysctl.h>
 #include <linux/jiffies.h>
+#include <linux/sched/rt.h>
 
 #include <asm/irq_regs.h>
 #include <linux/perf_event.h>

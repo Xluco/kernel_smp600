@@ -46,6 +46,7 @@
 #include <linux/sched.h>
 #include <linux/timer.h>
 #include <linux/sched/sysctl.h>
+#include <linux/sched/rt.h>
 #include <linux/sched/deadline.h>
 
 #include <asm/uaccess.h>
