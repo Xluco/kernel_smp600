@@ -9,17 +9,16 @@
 #include <linux/kernel.h>
 #include <linux/errno.h>
 #include <linux/smp.h>
+#include <linux/cpu.h>
+#include <linux/ratelimit.h>
+#include <linux/notifier.h>
 
-#include <asm/cacheflush.h>
 #include <asm/smp_plat.h>
 
 extern volatile int pen_release;
 
 static inline void cpu_enter_lowpower(void)
 {
-	/* Just flush the cache. Changing the coherency is not yet
-	 * available on msm. */
-	flush_cache_all();
 }
 
 static inline void cpu_leave_lowpower(void)
