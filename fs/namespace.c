@@ -2171,7 +2171,6 @@ long do_mount(char *dev_name, char *dir_name, char *type_page,
 		/* Fallback: Mark rootfs as recursive-slave as requested. */
 	}
 #endif
-
 	/* ... and get the mountpoint */
 	retval = kern_path(dir_name, LOOKUP_FOLLOW, &path);
 	if (retval)
