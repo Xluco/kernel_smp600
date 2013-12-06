@@ -2735,6 +2735,9 @@ static void sd_probe_async(void *data, async_cookie_t cookie)
 #endif
 
 	blk_pm_runtime_init(sdp->request_queue, dev);
+	if (sdp->autosuspend_delay >= 0)
+		pm_runtime_set_autosuspend_delay(dev, sdp->autosuspend_delay);
+
 	add_disk(gd);
 #ifdef CONFIG_USB_HOST_NOTIFY
 	sdkp->prv_media_present = sdkp->media_present;
