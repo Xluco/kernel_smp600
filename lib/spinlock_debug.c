@@ -107,7 +107,7 @@ static void __spin_lock_debug(raw_spinlock_t *lock)
 {
 	u64 i;
 	int print_once = 1;
-	u64 loops = (loops_per_jiffy * HZ) >> 1;
+	u64 loops = (loops_per_jiffy * HZ);
 
 	for (;;) {
 		for (i = 0; i < loops; i++) {
