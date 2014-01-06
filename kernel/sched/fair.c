@@ -4892,7 +4892,8 @@ static inline struct sched_domain *lowest_flag_domain(int cpu, int flag)
  * completely idle packages/cores just for the purpose of idle load balancing
  * when there are other idle cpu's which are better suited for that job.
  */
-static int find_new_ilb(int cpu)
+
+static inline int find_new_ilb(void)
 {
 	int ilb = cpumask_first(nohz.idle_cpus_mask);
 	struct sched_group *ilbg;
@@ -4955,7 +4956,7 @@ static void nohz_balancer_kick(int cpu)
 
 	nohz.next_balance++;
 
-	ilb_cpu = find_new_ilb(cpu);
+	ilb_cpu = find_new_ilb();
 
 	if (ilb_cpu >= nr_cpu_ids)
 		return;
