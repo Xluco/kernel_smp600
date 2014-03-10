@@ -43,8 +43,9 @@
 #include <linux/mutex.h>
 #include <linux/delay.h>
 #include <linux/swap.h>
+#include <linux/fs.h>
 #include <linux/powersuspend.h>
-
+#include <trace/events/memkill.h>
 #include <linux/ratelimit.h>
 
 #define LMK_COUNT_READ
@@ -52,12 +53,6 @@
 #ifdef LMK_COUNT_READ
 static uint32_t lmk_count = 0;
 #endif
-
-#ifdef CONFIG_ZSWAP
-#include <linux/fs.h>
-#include <linux/swap.h>
-#endif
-#include <trace/events/memkill.h>
 
 #ifdef CONFIG_SEC_OOM_KILLER
 #define MULTIPLE_OOM_KILLER
@@ -195,6 +190,35 @@ static int test_task_flag(struct task_struct *p, int flag)
 }
 
 static DEFINE_MUTEX(scan_mutex);
+
+#ifdef CONFIG_HIGHMEM
+void adjust_gfp_mask(gfp_t *gfp_mask)
+{
+	struct zone *preferred_zone;
+	struct zonelist *zonelist;
+	enum zone_type high_zoneidx;
+
+	if (current_is_kswapd()) {
+		zonelist = node_zonelist(0, *gfp_mask);
+		high_zoneidx = gfp_zone(*gfp_mask);
+		first_zones_zonelist(zonelist, high_zoneidx, NULL,
+				&preferred_zone);
+
+		if (high_zoneidx == ZONE_NORMAL) {
+			if (zone_watermark_ok_safe(preferred_zone, 0,
+					high_wmark_pages(preferred_zone), 0,
+					0))
+				*gfp_mask |= __GFP_HIGHMEM;
+		} else if (high_zoneidx == ZONE_HIGHMEM) {
+			*gfp_mask |= __GFP_HIGHMEM;
+		}
+	}
+}
+#else
+void adjust_gfp_mask(gfp_t *unused)
+{
+}
+#endif
 
 #ifdef CONFIG_ANDROID_LMK_ADJ_RBTREE
 static struct task_struct *pick_next_from_adj_tree(struct task_struct *task);
