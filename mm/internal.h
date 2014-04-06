@@ -361,7 +361,6 @@ static inline void swap_cache_miss(struct vm_area_struct *vma)
 #define ALLOC_HIGH		0x20 /* __GFP_HIGH set */
 #define ALLOC_CPUSET		0x40 /* check for correct cpuset */
 #define ALLOC_CMA		0x80 /* allow allocations from CMA areas */
-#define ALLOC_PFMEMALLOC	0x100 /* Caller has PF_MEMALLOC set */
 
 static inline int swap_cache_skip_readahead(struct vm_area_struct *vma)
 {
