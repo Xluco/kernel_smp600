@@ -613,12 +613,14 @@ static struct platform_device universal5410_gpio_keys = {
 	},
 };
 
+/*
 static struct input_debug_key_state kstate[] = {
 	SET_DEBUG_KEY(KEY_POWER, false),
 	SET_DEBUG_KEY(KEY_VOLUMEUP, false),
 	SET_DEBUG_KEY(KEY_VOLUMEDOWN, true),
 	SET_DEBUG_KEY(KEY_HOMEPAGE, false),
 };
+
 
 static struct input_debug_pdata input_debug_platform_data = {
 	.nkeys = ARRAY_SIZE(kstate),
@@ -631,10 +633,11 @@ static struct platform_device input_debug = {
 		.platform_data = &input_debug_platform_data,
 	},
 };
+*/
 
 static struct platform_device *universal5410_input_devices[] __initdata = {
 	&universal5410_gpio_keys,
-	&input_debug,
+//	&input_debug,
 #ifdef CONFIG_INPUT_WACOM
 	&exynos5_device_hs_i2c4,
 #endif
