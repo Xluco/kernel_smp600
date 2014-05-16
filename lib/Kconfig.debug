@@ -321,7 +321,7 @@ config SCHED_DEBUG
 config SYSRQ_SCHED_DEBUG
 	bool "Print scheduling debugging info from sysrq-trigger"
 	depends on SCHED_DEBUG
-	default y
+	default n
 	help
 	  If you say Y here, the "show-task-states(T)" and
 	  "show-blocked-tasks(W)" sysrq-triggers will print additional
@@ -1298,6 +1298,7 @@ config DYNAMIC_DEBUG
 config DMA_API_DEBUG
 	bool "Enable debugging of DMA-API usage"
 	depends on HAVE_DMA_API_DEBUG
+    default n
 	help
 	  Enable this option to debug the use of the DMA API by device drivers.
 	  With this option you will be able to detect common bugs in device
