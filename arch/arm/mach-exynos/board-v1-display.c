@@ -37,6 +37,10 @@
 
 #include <mach/map.h>
 
+#ifdef CONFIG_POWERSUSPEND
+#include <linux/powersuspend.h>
+#endif
+
 #define GPIO_LCD_EN		EXYNOS5420_GPG1(2)
 #define GPIO_DP_HPD		EXYNOS5420_GPX0(7)
 
@@ -93,6 +97,10 @@ static void v1_lcd_on(void)
 		pr_debug(" %s : %lld us\n", __func__, us);
 		usleep_range(us, us);
 	}
+    
+    #ifdef CONFIG_POWERSUSPEND
+    set_power_suspend_state_panel_hook(POWER_SUSPEND_INACTIVE);
+    #endif
 
 	gpio_set_value(GPIO_LCD_EN, 1);
 	v1_lcd_enable = 1;
@@ -107,7 +115,9 @@ static void v1_lcd_off(void)
 #if 1
 	usleep_range(300000, 300000);
 #endif
-
+    #ifdef CONFIG_POWERSUSPEND
+        set_power_suspend_state_panel_hook(POWER_SUSPEND_ACTIVE);
+    #endif
 }
 
 static void v1_lcd_set_power(struct plat_lcd_data *pd,
