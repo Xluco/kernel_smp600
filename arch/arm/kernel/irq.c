@@ -48,8 +48,6 @@
 #define irq_finish(irq) do { } while (0)
 #endif
 
-#include <asm/perftypes.h>
-
 unsigned long irq_err_count;
 
 int arch_show_interrupts(struct seq_file *p, int prec)

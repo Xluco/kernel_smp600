@@ -31,6 +31,7 @@
 #include <linux/videodev2_exynos_media.h>
 #include <linux/v4l2-mediabus.h>
 #include <linux/bug.h>
+#include <linux/sched/rt.h>
 
 #include <mach/map.h>
 #include <mach/regs-clock.h>

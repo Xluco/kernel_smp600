@@ -23,9 +23,7 @@
 #include <kbase/src/common/mali_kbase_jm.h>
 #include <kbase/src/common/mali_kbase_js.h>
 #include <kbase/src/common/mali_kbase_js_policy_cfs.h>
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 9, 0)
 #include <linux/sched/rt.h>
-#endif
 
 /**
  * Define for when dumping is enabled.
