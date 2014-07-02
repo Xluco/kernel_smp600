@@ -246,7 +246,7 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 HOSTCC       = ccache gcc
 HOSTCXX      = ccache g++
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fomit-frame-pointer -fgcse-las
-HOSTCXXFLAGS = -O3 -std=c++11 -fgcse-las
+HOSTCXXFLAGS = -O3 -fgcse-las
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -347,12 +347,12 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-LDFLAGS = -O1 --as-needed --sort-common --relax -S
+LDFLAGS = -O1 --as-needed --sort-common --relax
 CFLAGS_MODULE   = $(CFLAGS_KERNEL)
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  = $(LDFLAGS)
-CFLAGS_KERNEL	= -marm -munaligned-access -mfpu=neon-vfpv4 -ffast-math \
-					-ftree-vectorize -mvectorize-with-neon-quad \
+CFLAGS_KERNEL	= -marm -munaligned-access -mfpu=neon-vfpv4 -funsafe-math-optimizations \
+					-ftree-vectorize -mvectorize-with-neon-quad -funsafe-loop-optimizations \
 					-fgcse-sm -fgcse-las -fgcse-after-reload \
 					-floop-interchange -ftree-loop-distribution -floop-strip-mine -floop-block -fgraphite-identity \
 					-ftree-loop-im -ftree-loop-ivcanon -fivopts -funroll-loops -funswitch-loops -frerun-cse-after-loop \
@@ -360,7 +360,7 @@ CFLAGS_KERNEL	= -marm -munaligned-access -mfpu=neon-vfpv4 -ffast-math \
 					-fsched-spec-load -fforce-addr -fsingle-precision-constant \
 					-fsection-anchors -frename-registers \
 					-fmodulo-sched -fmodulo-sched-allow-regmoves \
-					-fomit-frame-pointer -fno-inline-functions
+					-fomit-frame-pointer
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
@@ -379,7 +379,7 @@ KBUILD_CFLAGS   := -DNDEBUG -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-delete-null-pointer-checks \
 		   -Wno-maybe-uninitialized \
 		   -Wno-sizeof-pointer-memaccess \
-   		   -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized -fno-exceptions -Wno-multichar \
+   		   -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized -Wno-multichar \
 		   $(CFLAGS_KERNEL)
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
