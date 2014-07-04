@@ -61,8 +61,6 @@ obj-$(CONFIG_ARM_TRUSTZONE)		+= smc.o
 plus_sec := $(call as-instr,.arch_extension sec,+sec)
 AFLAGS_smc.o :=-Wa,-march=armv7-a$(plus_sec)
 
-obj-$(CONFIG_ARCH_RANDOM) += early_random.o
-
 # machine support
 
 obj-$(CONFIG_MACH_SMDKC210)		+= mach-smdkv310.o
