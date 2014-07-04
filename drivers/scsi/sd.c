@@ -2734,7 +2734,6 @@ static void sd_probe_async(void *data, async_cookie_t cookie)
 	msleep(500);
 #endif
 
-	blk_pm_runtime_init(sdp->request_queue, dev);
 	if (sdp->autosuspend_delay >= 0)
 		pm_runtime_set_autosuspend_delay(dev, sdp->autosuspend_delay);
 
