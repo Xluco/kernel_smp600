@@ -1059,7 +1059,7 @@ void __init setup_arch(char **cmdline_p)
 	if (is_smp())
 		smp_init_cpus();
 		smp_build_mpidr_hash();
-	}
+	
 #endif
 
 	if (!is_smp())

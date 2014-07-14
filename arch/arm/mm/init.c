@@ -21,7 +21,7 @@
 #include <linux/gfp.h>
 #include <linux/memblock.h>
 #include <linux/sort.h>
-#include <linux/dma-contiguous.h>
+#include <linux/dma-mapping.h>
 #include <linux/sizes.h>
 #include <asm/mach-types.h>
 #include <asm/memblock.h>

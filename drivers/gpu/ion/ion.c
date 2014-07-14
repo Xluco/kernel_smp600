@@ -37,6 +37,7 @@
 #include <linux/debugfs.h>
 #include <linux/dma-buf.h>
 #include <linux/highmem.h>
+#include <linux/idr.h>
 
 #ifdef CONFIG_ARM
 #include <asm/cacheflush.h>
@@ -86,8 +87,9 @@ struct ion_client {
 	struct rb_node node;
 	struct ion_device *dev;
 	struct rb_root handles;
+	struct idr idr;
 	struct mutex lock;
-	const char *name;
+	char *name;
 	struct task_struct *task;
 	pid_t pid;
 	struct dentry *debug_root;
@@ -111,6 +113,7 @@ struct ion_handle {
 	struct ion_buffer *buffer;
 	struct rb_node node;
 	unsigned int kmap_cnt;
+    int id;
 };
 
 static bool ion_buffer_need_kmap(struct ion_buffer *buffer)
