@@ -106,6 +106,7 @@ static bool default_power_down_ok(struct dev_pm_domain *pd)
 	struct gpd_link *link;
 	struct pm_domain_data *pdd;
 	s64 min_off_time_ns;
+	s64 min_dev_off_time_ns;
 	s64 off_on_time_ns;
 
 	if (genpd->max_off_time_changed) {
