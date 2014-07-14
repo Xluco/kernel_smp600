@@ -856,10 +856,8 @@ static struct worker *__find_worker_executing_work(struct global_cwq *gcwq,
 	struct worker *worker;
 	struct hlist_node *tmp;
 
-	hash_for_each_possible(gcwq->busy_hash, worker, tmp, hentry,
-			       (unsigned long)work)
-		if (worker->current_work == work &&
-		    worker->current_func == work->func)
+	hlist_for_each_entry(worker, tmp, bwh, hentry)
+		if (worker->current_work == work)
 			return worker;
 	return NULL;
 }
