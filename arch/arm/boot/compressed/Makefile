@@ -22,15 +22,7 @@ OBJS		+= sdhi-sh7372.o
 endif
 
 AFLAGS_head.o += -DTEXT_OFFSET=$(TEXT_OFFSET)
-<<<<<<< HEAD
 AFLAGS_head.o += -Wa,-mcpu=cortex-a15
-=======
-
-AFLAGS_head.o += -Wa,-march=armv7-a$(plus_sec)
-AFLAGS_misc.o +=-Wa,-march=armv7-a$(plus_sec)
-AFLAGS_decompress.o += -Wa,-march=armv7-a$(plus_sec)
-
->>>>>>> 34b78a8... Fix warnings and compilation errors with gcc 4.8
 HEAD	= head.o
 OBJS	+= misc.o
 
@@ -173,11 +165,7 @@ LDFLAGS_vmlinux += -X
 LDFLAGS_vmlinux += -T
 
 # For __aeabi_uidivmod
-<<<<<<< HEAD
 AFLAGS_lib1funcs.o += -Wa,-mcpu=cortex-a15
-=======
-AFLAGS_lib1funcs.o +=-Wa,-march=armv7-a$(plus_sec)
->>>>>>> 34b78a8... Fix warnings and compilation errors with gcc 4.8
 lib1funcs = $(obj)/lib1funcs.o
 
 $(obj)/lib1funcs.S: $(srctree)/arch/$(SRCARCH)/lib/lib1funcs.S
