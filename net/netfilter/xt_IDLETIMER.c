@@ -114,7 +114,8 @@ static bool check_for_delayed_trigger(struct idletimer_tg *timer,
 }
 
 static void notify_netlink_uevent(const char *label, struct idletimer_tg *timer)
-{
+{   
+    char iface_msg[NLMSG_MAX_SIZE];
 	char label_msg[NLMSG_MAX_SIZE];
 	char state_msg[NLMSG_MAX_SIZE];
 	char timestamp_msg[NLMSG_MAX_SIZE];
