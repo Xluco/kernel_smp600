@@ -251,7 +251,7 @@ int f2fs_init_acl(struct inode *inode, struct inode *dir, struct page *ipage)
 	struct posix_acl *acl = NULL;
 	int error = 0;
 
-	if (!S_ISLNK(inode->i_mode)) {
+	if (!S_ISLNK(inode->i_mode)) 
 		if (test_opt(sbi, POSIX_ACL)) {
 			acl = f2fs_get_acl(dir, ACL_TYPE_DEFAULT);
 			if (IS_ERR(acl))
@@ -263,8 +263,8 @@ int f2fs_init_acl(struct inode *inode, struct inode *dir, struct page *ipage)
 #else
 		if (!acl)
 			inode->i_mode &= ~current_umask();
-	}
-
+#endif            
+	
 	if (!test_opt(sbi, POSIX_ACL) || !acl)
 		goto cleanup;
 
