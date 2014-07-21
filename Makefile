@@ -380,6 +380,7 @@ KBUILD_CFLAGS   := -DNDEBUG -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-delete-null-pointer-checks \
 		   -Wno-maybe-uninitialized \
 		   -Wno-sizeof-pointer-memaccess \
+		   -Wno-sequence-point \
    		   -Wno-error=unused-parameter -Wno-error=unused-but-set-variable -Wno-error=maybe-uninitialized -fno-exceptions -Wno-multichar \
 		   $(CFLAGS_KERNEL)
 KBUILD_AFLAGS_KERNEL :=
