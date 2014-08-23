@@ -21,7 +21,7 @@
 #include <linux/notifier.h>
 #include <linux/spinlock.h>
 #include <linux/syscore_ops.h>
-#ifdef CONFIG_SEC_PM
+#ifdef CONFIG_SEC_PM_DEBUG
 #include <mach/debug.h>
 #endif
 
@@ -208,7 +208,7 @@ static int cpu_pm_suspend(void)
 {
 	int ret;
 
-#ifdef CONFIG_SEC_PM
+#ifdef CONFIG_SEC_PM_DEBUG
 	if (FLAG_T32_EN)
 		goto out;
 #endif
