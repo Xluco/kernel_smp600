@@ -463,12 +463,12 @@ __writeback_single_inode(struct inode *inode, struct bdi_writeback *wb,
 	 * I/O completion. We don't do it for sync(2) writeback because it has a
 	 * separate, external IO completion path and ->sync_fs for guaranteeing
 	 * inode metadata is written back correctly.
-	 
+	 */
 	if (wbc->sync_mode == WB_SYNC_ALL && !wbc->for_sync) {
 		int err = filemap_fdatawait(mapping);
 		if (ret == 0)
 			ret = err;
-	}*/
+	}
 
 	/*
 	 * Some filesystems may redirty the inode during the writeback
@@ -601,6 +601,7 @@ static long writeback_sb_inodes(struct super_block *sb,
 		.tagged_writepages	= work->tagged_writepages,
 		.for_kupdate		= work->for_kupdate,
 		.for_background		= work->for_background,
+		.for_sync		= work->for_sync,
 		.range_cyclic		= work->range_cyclic,
 		.range_start		= 0,
 		.range_end		= LLONG_MAX,
