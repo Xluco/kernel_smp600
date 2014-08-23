@@ -37,7 +37,6 @@
 #include <linux/mm_inline.h>
 #include <linux/timer.h>
 #include <trace/events/writeback.h>
-#include <linux/powersuspend.h>
 
 /*
  * Sleep at most 200ms at a time in balance_dirty_pages().
@@ -96,25 +95,15 @@ unsigned long vm_dirty_bytes;
 /*
  * The interval between `kupdate'-style writebacks
  */
-#define DEFAULT_DIRTY_WRITEBACK_INTERVAL 600 /* centiseconds */
-#define DEFAULT_SUSPEND_DIRTY_WRITEBACK_INTERVAL 6000 /* centiseconds */
-unsigned int dirty_writeback_interval,
-	resume_dirty_writeback_interval;
-unsigned int sleep_dirty_writeback_interval,
-    suspend_dirty_writeback_interval;
-    
+unsigned int dirty_writeback_interval = 5 * 100; /* centiseconds */
+
 EXPORT_SYMBOL_GPL(dirty_writeback_interval);
 
 /*
  * The longest time for which data is allowed to remain dirty
  */
-#define DEFAULT_DIRTY_EXPIRE_INTERVAL 3000 /* centiseconds */
-#define DEFAULT_SUSPEND_DIRTY_EXPIRE_INTERVAL 12000 /* centiseconds */
-unsigned int dirty_expire_interval,
-	resume_dirty_expire_interval;
-unsigned int sleep_dirty_expire_interval,
-	suspend_dirty_expire_interval;
-    
+unsigned int dirty_expire_interval = 30 * 100; /* centiseconds */
+
 /*
  * Flag that makes the machine dump writes/reads and block dirtyings.
  */
@@ -1621,24 +1610,6 @@ void writeback_set_ratelimit(void)
 		ratelimit_pages = 16;
 }
 
-static void dirty_early_suspend(struct power_suspend *handler)
-{
-	dirty_writeback_interval = suspend_dirty_writeback_interval;
-	dirty_expire_interval = suspend_dirty_expire_interval;
-}
-
-static void dirty_late_resume(struct power_suspend *handler)
-{
-	dirty_writeback_interval = resume_dirty_writeback_interval;
-	dirty_expire_interval = resume_dirty_expire_interval;
-}
-
-static struct power_suspend dirty_suspend = {
-	.suspend = dirty_early_suspend,
-	.resume = dirty_late_resume,
-};
-
-
 static int __cpuinit
 ratelimit_handler(struct notifier_block *self, unsigned long u, void *v)
 {
@@ -1671,17 +1642,6 @@ static struct notifier_block __cpuinitdata ratelimit_nb = {
  */
 void __init page_writeback_init(void)
 {
-    
-    dirty_writeback_interval = resume_dirty_writeback_interval =
-		DEFAULT_DIRTY_WRITEBACK_INTERVAL;
-	dirty_expire_interval = resume_dirty_expire_interval =
-		DEFAULT_DIRTY_EXPIRE_INTERVAL;
-	sleep_dirty_writeback_interval = suspend_dirty_writeback_interval =
-		DEFAULT_SUSPEND_DIRTY_WRITEBACK_INTERVAL;
-	sleep_dirty_expire_interval = suspend_dirty_expire_interval =
-		DEFAULT_SUSPEND_DIRTY_EXPIRE_INTERVAL;
-	register_power_suspend(&dirty_suspend);
- 
 	writeback_set_ratelimit();
 	register_cpu_notifier(&ratelimit_nb);
 
