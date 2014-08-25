@@ -16,8 +16,8 @@
 #include <linux/firmware.h>
 #include <linux/pm_qos.h>
 
-#ifdef CONFIG_POWERSUSPEND
-#include <linux/powersuspend.h>
+#ifdef CONFIG_HAS_EARLYSUSPEND
+#include <linux/earlysuspend.h>
 #endif
 
 #include <linux/wacom_i2c.h>
@@ -382,8 +382,8 @@ struct wacom_i2c {
 	struct i2c_client *client_boot;
 	struct completion init_done;
 	struct input_dev *input_dev;
-#ifdef CONFIG_POWERSUSPEND
-	struct power_suspend power_suspend;
+#ifdef CONFIG_HAS_EARLYSUSPEND
+	struct early_suspend early_suspend;
 #endif
 	struct mutex lock;
 	struct mutex update_lock;
