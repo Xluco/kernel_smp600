@@ -3273,7 +3273,7 @@ static void sec_battery_complete(struct device *dev)
 
 	wake_lock(&battery->monitor_wake_lock);
 	queue_delayed_work(battery->monitor_wqueue,
-		&battery->monitor_work, 0);
+		&battery->monitor_work, 500);
 
 	dev_dbg(battery->dev, "%s: End\n", __func__);
 
