@@ -284,7 +284,7 @@ static int sec_bat_get_cable_from_extended_cable_type(
 				break;
 			case ONLINE_POWER_TYPE_USB:
 				cable_type = POWER_SUPPLY_TYPE_USB;
-				charge_current_max = mhl_class_usb;
+				charge_current_max = mhl_class_900;
 				charge_current = mhl_class_usb;
 				break;
 			default:
