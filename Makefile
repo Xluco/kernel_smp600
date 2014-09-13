@@ -352,7 +352,7 @@ CFLAGS_MODULE   = $(CFLAGS_KERNEL)
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  = $(LDFLAGS)
 CFLAGS_KERNEL	= -marm -munaligned-access -mfpu=neon-vfpv4 -funsafe-math-optimizations \
-					-ftree-vectorize -mvectorize-with-neon-quad \
+					-ftree-vectorize -mvectorize-with-neon-quad -funsafe-loop-optimizations \
 					-fgcse-sm -fgcse-las -fgcse-after-reload \
 					-floop-interchange -ftree-loop-distribution -floop-strip-mine -floop-block -fgraphite-identity \
 					-ftree-loop-im -ftree-loop-ivcanon -fivopts -funroll-loops -funswitch-loops -frerun-cse-after-loop \
