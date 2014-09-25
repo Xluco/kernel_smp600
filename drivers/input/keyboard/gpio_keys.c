@@ -896,7 +896,6 @@ static void flip_cover_work(struct work_struct *work)
 	}
 }
 #else
-static struct input_dev *powerkey_device;
 static void flip_cover_work(struct work_struct *work)
 {
 	bool first;
@@ -914,7 +913,7 @@ static void flip_cover_work(struct work_struct *work)
 		input_report_switch(ddata->input,
 			SW_FLIP, ddata->flip_cover);
 		input_sync(ddata->input);
-	if (ddata->flip_cover == 0) {
+	if (ddata->flip_cover == 0 && !suspended) {
 		pr_info("%s: flip cover closed. Going to sleep ...\n", __func__);
 	        input_event(powerkey_device, EV_KEY, KEY_POWER, 1);
 	        input_event(powerkey_device, EV_SYN, 0, 0);
@@ -923,7 +922,7 @@ static void flip_cover_work(struct work_struct *work)
 	        input_event(powerkey_device, EV_KEY, KEY_POWER, 0);
 	        input_event(powerkey_device, EV_SYN, 0, 0);
 	}
-	if (ddata->flip_cover == 1) {
+	if (ddata->flip_cover == 1 && suspended) {
 		pr_info("%s: flip cover opened. Waking up ...\n", __func__);
 	        input_event(powerkey_device, EV_KEY, KEY_POWER, 1);
 	        input_event(powerkey_device, EV_SYN, 0, 0);
