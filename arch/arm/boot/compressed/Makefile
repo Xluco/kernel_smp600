@@ -3,6 +3,7 @@
 #
 # create a compressed vmlinuz image from the original vmlinux
 #
+plus_sec := $(call as-instr,.arch_extension sec,+sec)
 
 OBJS		=
 
