@@ -55,6 +55,7 @@ static int exynos_xhci_suspend(struct device *dev)
 	struct usb_hcd		*hcd;
 	struct xhci_hcd		*xhci;
 	int			retval = 0;
+	bool do_wakeup = NULL;
 
 #ifdef CONFIG_PM_RUNTIME
 	dev_dbg(dev, "%s: usage_count = %d\n",
@@ -79,7 +80,7 @@ static int exynos_xhci_suspend(struct device *dev)
 		return 0;
 	}
 #endif
-	retval = xhci_suspend(xhci);
+	retval = xhci_suspend(xhci, do_wakeup);
 	if (retval < 0)
 		dev_err(dev, "%s: cannot stop xHC\n", __func__);
 
@@ -154,6 +155,7 @@ static int exynos_xhci_runtime_suspend(struct device *dev)
 	struct usb_hcd		*hcd;
 	struct xhci_hcd		*xhci;
 	int			retval = 0;
+	bool do_wakeup = NULL;
 
 	dev_dbg(dev, "%s\n", __func__);
 
@@ -173,7 +175,7 @@ static int exynos_xhci_runtime_suspend(struct device *dev)
 		return -EAGAIN;
 	}
 
-	retval = xhci_suspend(xhci);
+	retval = xhci_suspend(xhci, do_wakeup);
 	if (retval < 0)
 		dev_err(dev, "%s: cannot stop xHC\n", __func__);
 
